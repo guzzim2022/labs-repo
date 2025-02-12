@@ -101,11 +101,14 @@ following lines of code:
 # Turn the result into a character vector
 ids <- as.character(ids)
 
+
 # Find all the ids 
-ids <- stringr::str_extract_all(ids, "PATTERN")[[1]]
+ids <- stringr::str_extract_all(ids, "<Id>(\\d+)</Id>")[[1]]
+
 
 # Remove all the leading and trailing <Id> </Id>. Make use of "|"
-ids <- stringr::str_remove_all(ids, "PATTERN")
+ids <- stringr::str_remove_all(ids, "<Id>|</Id>")
+
 ```
 
 With the ids in hand, we can now try to get the abstracts of the papers. As
@@ -123,10 +126,8 @@ before, we will need to coerce the contents (results) to a list using:
     
 ```{r get-abstracts, eval = FALSE}
 publications <- GET(
-  url   = "BASELINE URL HERE",
-  query = list(
-    "PARAMETERS OF THE QUERY"
-    )
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+  query = list(db="pubmed", rettype="abstract", retmax =1000, id = I(paste(ids, collapse = ",")))
 )
 
 # Turning the output into character vector
