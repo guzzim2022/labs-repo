@@ -76,8 +76,8 @@ The parameters passed to the query are documented [here](https://www.ncbi.nlm.ni
 ```{r papers-covid-toronto, eval=FALSE}
 library(httr)
 query_ids <- GET(
-  url   = "BASELINE URL",
-  query = list("QUERY PARAMETERS")
+  url   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+  query = list(db="pubmed", term="h5n1 toronto", retmax =1000)
 )
 
 # Extracting the content of the response of GET
