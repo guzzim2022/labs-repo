@@ -148,9 +148,8 @@ Write a regular expression that captures all such instances
 
 ```{r univ-institute-regex, eval = FALSE}
 institution <- str_extract_all(
-  publications_txt,
-  "[YOUR REGULAR EXPRESSION HERE]"
-  ) 
+  publications_txt,"University\\sof\\s[A-Za-z\\s]+|[A-Za-z]+\\sInstitute\\sof\\s[A-Za-z]+\\s")
+
 institution <- unlist(institution)
 as.data.frame(table(institution))
 ```
@@ -164,8 +163,8 @@ And tabulate the results
 
 ```{r school-department, eval = FALSE}
 schools_and_deps <- str_extract_all(
-  abstracts_txt,
-  "[YOUR REGULAR EXPRESSION HERE]"
+  publications_txt,
+  "(School of [A-Za-z\\s]+|Department of [A-Za-z\\s]+)"
   )
 as.data.frame(table(schools_and_deps))
 ```
